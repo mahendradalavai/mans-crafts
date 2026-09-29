@@ -1,5 +1,6 @@
 {
-  "name": "first-",
+  "name": "mans-crafts",
+  "description": "MAN's Crafts storefront — men's bangles and photo frames with WhatsApp ordering.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
