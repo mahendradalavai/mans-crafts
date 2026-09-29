@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 const PRODUCT_HASH = /^#\/product\/([\w-]+)$/
+const ADMIN_HASH = /^#\/admin\/?$/
 const SECTION_HASH = /^#(shop|story|journal)$/
 
 function slugFromLocation() {
@@ -12,13 +13,16 @@ function slugFromLocation() {
 // host, and the browser back button closes the detail view for free.
 export function useProductRouting() {
   const [selectedSlug, setSelectedSlug] = useState(slugFromLocation)
+  const [isAdminRoute, setIsAdminRoute] = useState(() => ADMIN_HASH.test(window.location.hash))
   const [scrollRequest, setScrollRequest] = useState(null)
 
   useEffect(() => {
     const syncFromLocation = () => {
-      const slug = slugFromLocation()
+      const admin = ADMIN_HASH.test(window.location.hash)
+      const slug = admin ? null : slugFromLocation()
+      setIsAdminRoute(admin)
       setSelectedSlug(slug)
-      if (slug) {
+      if (admin || slug) {
         setScrollRequest({ target: 'top' })
         return
       }
@@ -48,5 +52,5 @@ export function useProductRouting() {
     setScrollRequest({ target: 'shop' })
   }, [])
 
-  return { selectedSlug, closeProduct }
+  return { selectedSlug, isAdminRoute, closeProduct }
 }

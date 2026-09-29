@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { formatPrice } from '../config.js'
+import ProductImage from './ProductImage.jsx'
 
 const FOCUSABLE = 'button:not([disabled]), a[href], input, [tabindex]:not([tabindex="-1"])'
 
@@ -85,7 +86,7 @@ export default function CartDrawer({
             <div className="cart-items">
               {items.map((item) => (
                 <div className="cart-item" key={item.id}>
-                  <img src={item.image} alt="" />
+                  <ProductImage product={item} alt="" />
                   <div>
                     <h3>{item.name}</h3>
                     <p>{formatPrice(item.price)}</p>

@@ -1,4 +1,5 @@
 import { formatPrice, productPath } from '../config.js'
+import ProductImage from './ProductImage.jsx'
 
 export default function ProductCard({ product, onAdd, onBuy }) {
   const soldOut = (product.stock ?? 0) <= 0
@@ -7,7 +8,7 @@ export default function ProductCard({ product, onAdd, onBuy }) {
     <article className={`product${soldOut ? ' is-sold-out' : ''}`}>
       <div className="product-image">
         <a className="product-link" href={productPath(product)} aria-label={`View ${product.name}`}>
-          <img src={product.image} alt={product.name} loading="lazy" />
+          <ProductImage product={product} />
         </a>
         {soldOut ? (
           <span className="stock-badge">Sold out</span>

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import ProductCard from './ProductCard.jsx'
+import ProductImage from './ProductImage.jsx'
 import { STORE, formatPrice } from '../config.js'
 
 export default function ProductDetail({ product, related, onBack, onAdd, onBuy }) {
@@ -20,7 +21,7 @@ export default function ProductDetail({ product, related, onBack, onAdd, onBuy }
       </button>
       <div className="detail-layout">
         <div className="detail-image">
-          <img src={product.image} alt={product.name} />
+          <ProductImage product={product} loading="eager" />
         </div>
         <div className="detail-copy">
           <p className="kicker">
