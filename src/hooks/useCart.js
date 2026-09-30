@@ -66,7 +66,9 @@ export function useCart(catalogue) {
 
   const addToCart = useCallback(
     (product) => {
-      const available = Math.max(1, product.stock ?? MAX_QUANTITY)
+      const available = Math.min(Math.max(0, Number(product.stock ?? 0)), MAX_QUANTITY)
+      if (available <= 0) return
+
       setEntries((current) => {
         const entries = prune(current)
         const existing = entries.find((entry) => entry.id === product.id)
@@ -89,7 +91,7 @@ export function useCart(catalogue) {
         prune(current)
           .map((entry) => {
             if (entry.id !== id) return entry
-            const ceiling = Math.min(Math.max(1, stockFor(id)), MAX_QUANTITY)
+            const ceiling = Math.min(Math.max(0, stockFor(id)), MAX_QUANTITY)
             return { ...entry, quantity: Math.min(entry.quantity + delta, ceiling) }
           })
           .filter((entry) => entry.quantity > 0),
